@@ -4,25 +4,19 @@ A collection of skills for AI-assisted Angular development. These skills provide
 
 ## Installation
 
-Install individual skills using the [Skills CLI](https://skills.sh):
+Install all skills from this repository:
 
 ```bash
-npx @anthropic-ai/skills add https://github.com/anthropics/angular-skills/tree/main/skills/angular-component
+npx skills add analogjs/angular-skills
 ```
 
-Or install all skills:
+Or install individual skills:
 
 ```bash
-npx @anthropic-ai/skills add https://github.com/anthropics/angular-skills/tree/main/skills/angular-component
-npx @anthropic-ai/skills add https://github.com/anthropics/angular-skills/tree/main/skills/angular-di
-npx @anthropic-ai/skills add https://github.com/anthropics/angular-skills/tree/main/skills/angular-directives
-npx @anthropic-ai/skills add https://github.com/anthropics/angular-skills/tree/main/skills/angular-forms
-npx @anthropic-ai/skills add https://github.com/anthropics/angular-skills/tree/main/skills/angular-http
-npx @anthropic-ai/skills add https://github.com/anthropics/angular-skills/tree/main/skills/angular-routing
-npx @anthropic-ai/skills add https://github.com/anthropics/angular-skills/tree/main/skills/angular-signals
-npx @anthropic-ai/skills add https://github.com/anthropics/angular-skills/tree/main/skills/angular-ssr
-npx @anthropic-ai/skills add https://github.com/anthropics/angular-skills/tree/main/skills/angular-testing
-npx @anthropic-ai/skills add https://github.com/anthropics/angular-skills/tree/main/skills/angular-tooling
+npx skills add analogjs/angular-skills/skills/angular-component
+npx skills add analogjs/angular-skills/skills/angular-signals
+npx skills add analogjs/angular-skills/skills/angular-forms
+# etc.
 ```
 
 ## Available Skills
