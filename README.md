@@ -1,6 +1,6 @@
 # Angular Skills
 
-A collection of skills for AI-assisted Angular development. These skills provide Claude with up-to-date Angular v20+ patterns, best practices, and code examples.
+A collection of skills for AI-assisted Angular development. These skills provide coding agents such as Claude, Gemini, OpenCode, etc with up-to-date Angular v20+ patterns, best practices, and code examples.
 
 ## Installation
 
@@ -18,6 +18,8 @@ npx skills add analogjs/angular-skills/skills/angular-signals
 npx skills add analogjs/angular-skills/skills/angular-forms
 # etc.
 ```
+
+Give the GitHub repo a ⭐️!
 
 ## Available Skills
 
