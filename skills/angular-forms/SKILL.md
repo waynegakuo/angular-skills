@@ -45,7 +45,7 @@ interface LoginData {
     </form>
   `,
 })
-export class LoginComponent {
+export class Login {
   // Form model - a writable signal
   loginModel = signal<LoginData>({
     email: '',
@@ -322,7 +322,7 @@ import { submit } from '@angular/forms/signals';
     </form>
   `,
 })
-export class LoginComponent {
+export class Login {
   model = signal({ email: '', password: '' });
   form = form(this.model, (schemaPath) => {
     required(schemaPath.email);
@@ -359,7 +359,7 @@ interface Order {
     <button type="button" (click)="addItem()">Add Item</button>
   `,
 })
-export class OrderComponent {
+export class Order {
   orderModel = signal<Order>({
     items: [{ product: '', quantity: 1 }],
   });

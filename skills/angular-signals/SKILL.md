@@ -100,7 +100,7 @@ const selectedItem = linkedSignal<Item[], Item | null>({
 import { signal, effect, inject, DestroyRef } from '@angular/core';
 
 @Component({...})
-export class SearchComponent {
+export class Search {
   query = signal('');
   
   constructor() {
@@ -146,7 +146,7 @@ export class SearchComponent {
     <p>{{ remaining() }} remaining</p>
   `,
 })
-export class TodoListComponent {
+export class TodoList {
   // State
   todos = signal<Todo[]>([]);
   newTodo = signal('');
@@ -197,7 +197,7 @@ import { toSignal } from '@angular/core/rxjs-interop';
 import { interval } from 'rxjs';
 
 @Component({...})
-export class TimerComponent {
+export class Timer {
   private http = inject(HttpClient);
   
   // From observable - requires initial value or allowUndefined
@@ -219,7 +219,7 @@ import { toObservable } from '@angular/core/rxjs-interop';
 import { switchMap, debounceTime } from 'rxjs';
 
 @Component({...})
-export class SearchComponent {
+export class Search {
   query = signal('');
   
   private http = inject(HttpClient);
@@ -269,7 +269,7 @@ const result = computed(() => {
 
 ```typescript
 @Injectable({ providedIn: 'root' })
-export class AuthService {
+export class Auth {
   // Private writable state
   private _user = signal<User | null>(null);
   private _loading = signal(false);

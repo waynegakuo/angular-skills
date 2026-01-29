@@ -30,7 +30,7 @@ import { Component, model } from '@angular/core';
     <span>{{ value() }}</span>
   `,
 })
-export class SliderComponent {
+export class Slider {
   // Model creates both input and output
   value = model(0);
   min = input(0);
@@ -68,17 +68,17 @@ import { Component, viewChild, viewChildren, ElementRef } from '@angular/core';
     </div>
   `,
 })
-export class GalleryComponent {
+export class Gallery {
   images = input.required<Image[]>();
 
   // Query single element
   container = viewChild.required<ElementRef<HTMLDivElement>>('container');
 
   // Query single component (optional)
-  firstCard = viewChild(ImageCardComponent);
+  firstCard = viewChild(ImageCard);
 
   // Query all matching components
-  allCards = viewChildren(ImageCardComponent);
+  allCards = viewChildren(ImageCard);
 }
 ```
 
@@ -107,14 +107,14 @@ import { Component, contentChild, contentChildren, effect, signal } from '@angul
     </div>
   `,
 })
-export class TabsComponent {
-  // Query all projected TabComponent children
-  tabs = contentChildren(TabComponent);
+export class Tabs {
+  // Query all projected Tab children
+  tabs = contentChildren(Tab);
 
   // Query single projected element
   header = contentChild('tabHeader');
 
-  activeTab = signal<TabComponent | undefined>(undefined);
+  activeTab = signal<Tab | undefined>(undefined);
 
   constructor() {
     // Set first tab as active when tabs are available
@@ -126,7 +126,7 @@ export class TabsComponent {
     });
   }
 
-  selectTab(tab: TabComponent) {
+  selectTab(tab: Tab) {
     this.activeTab.set(tab);
   }
 }
@@ -139,7 +139,7 @@ export class TabsComponent {
     '[style.display]': 'isActive() ? "block" : "none"',
   },
 })
-export class TabComponent {
+export class Tab {
   label = input.required<string>();
   isActive = input(false);
 }
@@ -157,16 +157,16 @@ import { Router } from '@angular/router';
   selector: 'app-dashboard',
   template: `...`,
 })
-export class DashboardComponent {
+export class Dashboard {
   private router = inject(Router);
-  private userService = inject(UserService);
+  private userService = inject(User);
   private config = inject(APP_CONFIG);
   
   // Optional injection
-  private analytics = inject(AnalyticsService, { optional: true });
+  private analytics = inject(Analytics, { optional: true });
   
   // Self-only injection
-  private localService = inject(LocalService, { self: true });
+  private localService = inject(Local, { self: true });
   
   navigateToProfile() {
     this.router.navigate(['/profile']);
@@ -183,14 +183,14 @@ export class DashboardComponent {
 @Component({
   template: `<app-child [data]="parentData()" [config]="config" />`,
 })
-export class ParentComponent {
+export class Parent {
   parentData = signal({ name: 'Test' });
   config = { theme: 'dark' };
 }
 
 // Child
 @Component({ selector: 'app-child' })
-export class ChildComponent {
+export class Child {
   data = input.required<Data>();
   config = input<Config>();
 }
@@ -204,7 +204,7 @@ export class ChildComponent {
   selector: 'app-child',
   template: `<button (click)="save()">Save</button>`,
 })
-export class ChildComponent {
+export class Child {
   saved = output<Data>();
   
   save() {
@@ -216,7 +216,7 @@ export class ChildComponent {
 @Component({
   template: `<app-child (saved)="onSaved($event)" />`,
 })
-export class ParentComponent {
+export class Parent {
   onSaved(data: Data) {
     console.log('Saved:', data);
   }
@@ -228,7 +228,7 @@ export class ParentComponent {
 ```typescript
 // Shared state service
 @Injectable({ providedIn: 'root' })
-export class CartService {
+export class Cart {
   private items = signal<CartItem[]>([]);
   
   readonly items$ = this.items.asReadonly();
@@ -247,8 +247,8 @@ export class CartService {
 
 // Component A
 @Component({ template: `<button (click)="add()">Add</button>` })
-export class ProductComponent {
-  private cart = inject(CartService);
+export class Product {
+  private cart = inject(Cart);
   product = input.required<Product>();
   
   add() {
@@ -258,8 +258,8 @@ export class ProductComponent {
 
 // Component B
 @Component({ template: `<span>Total: {{ cart.total() }}</span>` })
-export class CartSummaryComponent {
-  cart = inject(CartService);
+export class CartSummary {
+  cart = inject(Cart);
 }
 ```
 
@@ -281,7 +281,7 @@ Using `@defer` for lazy loading:
     }
   `,
 })
-export class DashboardComponent {
+export class Dashboard {
   chartData = input.required<ChartData>();
 }
 ```
@@ -305,7 +305,7 @@ Defer triggers:
     }
   `,
 })
-export class PostComponent {
+export class Post {
   postId = input.required<string>();
 }
 ```
@@ -319,16 +319,16 @@ export class PostComponent {
     '[style.backgroundColor]': 'color()',
   },
 })
-export class HighlightDirective {
+export class Highlight {
   color = input('yellow', { alias: 'appHighlight' });
 }
 
 // Usage on component
 @Component({
-  imports: [HighlightDirective],
+  imports: [Highlight],
   template: `<app-card appHighlight="lightblue" />`,
 })
-export class PageComponent {}
+export class Page {}
 ```
 
 ## Error Boundaries
@@ -347,7 +347,7 @@ export class PageComponent {}
     }
   `,
 })
-export class ErrorBoundaryComponent {
+export class ErrorBoundary {
   hasError = signal(false);
   private errorHandler = inject(ErrorHandler);
   

@@ -67,18 +67,18 @@ ng test --code-coverage
 ```typescript
 import { describe, it, expect, beforeEach } from 'vitest';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { CounterComponent } from './counter.component';
+import { Counter } from './counter.component';
 
-describe('CounterComponent', () => {
-  let component: CounterComponent;
-  let fixture: ComponentFixture<CounterComponent>;
+describe('Counter', () => {
+  let component: Counter;
+  let fixture: ComponentFixture<Counter>;
   
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [CounterComponent],
+      imports: [Counter],
     }).compileComponents();
     
-    fixture = TestBed.createComponent(CounterComponent);
+    fixture = TestBed.createComponent(Counter);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });
@@ -102,7 +102,7 @@ describe('CounterComponent', () => {
 ```typescript
 import { describe, it, expect, vi, beforeEach } from 'vitest';
 
-describe('UserComponent', () => {
+describe('UserCmpt', () => {
   const mockUserService = {
     getUser: vi.fn(),
     updateUser: vi.fn(),
@@ -114,15 +114,15 @@ describe('UserComponent', () => {
     mockUserService.getUser.mockReturnValue(of({ id: '1', name: 'Test' }));
     
     await TestBed.configureTestingModule({
-      imports: [UserComponent],
+      imports: [UserCmpt],
       providers: [
-        { provide: UserService, useValue: mockUserService },
+        { provide: User, useValue: mockUserService },
       ],
     }).compileComponents();
   });
   
   it('should call getUser on init', () => {
-    const fixture = TestBed.createComponent(UserComponent);
+    const fixture = TestBed.createComponent(UserCmpt);
     fixture.detectChanges();
     
     expect(mockUserService.getUser).toHaveBeenCalledWith('1');
@@ -137,8 +137,8 @@ import { describe, it, expect, beforeEach, afterEach } from 'vitest';
 import { HttpTestingController, provideHttpClientTesting } from '@angular/common/http/testing';
 import { provideHttpClient } from '@angular/common/http';
 
-describe('UserService', () => {
-  let service: UserService;
+describe('User', () => {
+  let service: User;
   let httpMock: HttpTestingController;
   
   beforeEach(() => {
@@ -149,7 +149,7 @@ describe('UserService', () => {
       ],
     });
     
-    service = TestBed.inject(UserService);
+    service = TestBed.inject(User);
     httpMock = TestBed.inject(HttpTestingController);
   });
   
@@ -177,18 +177,18 @@ describe('UserService', () => {
 
 ```typescript
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { CounterComponent } from './counter.component';
+import { Counter } from './counter.component';
 
-describe('CounterComponent', () => {
-  let component: CounterComponent;
-  let fixture: ComponentFixture<CounterComponent>;
+describe('Counter', () => {
+  let component: Counter;
+  let fixture: ComponentFixture<Counter>;
   
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [CounterComponent], // Standalone component
+      imports: [Counter], // Standalone component
     }).compileComponents();
     
-    fixture = TestBed.createComponent(CounterComponent);
+    fixture = TestBed.createComponent(Counter);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });
@@ -252,7 +252,7 @@ describe('Signal logic', () => {
     <p>{{ remaining() }} remaining</p>
   `,
 })
-export class TodoListComponent {
+export class TodoList {
   todos = signal<Todo[]>([]);
   filter = signal<'all' | 'active' | 'done'>('all');
   
@@ -268,16 +268,16 @@ export class TodoListComponent {
   remaining = computed(() => this.todos().filter(t => !t.done).length);
 }
 
-describe('TodoListComponent', () => {
-  let component: TodoListComponent;
-  let fixture: ComponentFixture<TodoListComponent>;
+describe('TodoList', () => {
+  let component: TodoList;
+  let fixture: ComponentFixture<TodoList>;
   
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [TodoListComponent],
+      imports: [TodoList],
     }).compileComponents();
     
-    fixture = TestBed.createComponent(TodoListComponent);
+    fixture = TestBed.createComponent(TodoList);
     component = fixture.componentInstance;
   });
   
@@ -318,13 +318,13 @@ OnPush components require explicit change detection:
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `<span>{{ data().name }}</span>`,
 })
-export class OnPushComponent {
+export class OnPush {
   data = input.required<{ name: string }>();
 }
 
-describe('OnPushComponent', () => {
+describe('OnPush', () => {
   it('should update when input signal changes', () => {
-    const fixture = TestBed.createComponent(OnPushComponent);
+    const fixture = TestBed.createComponent(OnPush);
     
     // Set input using setInput (for signal inputs)
     fixture.componentRef.setInput('data', { name: 'Initial' });
@@ -349,7 +349,7 @@ describe('OnPushComponent', () => {
 import { TestBed } from '@angular/core/testing';
 
 @Injectable({ providedIn: 'root' })
-export class CounterService {
+export class CounterSvc {
   private _count = signal(0);
   readonly count = this._count.asReadonly();
   
@@ -362,12 +362,12 @@ export class CounterService {
   }
 }
 
-describe('CounterService', () => {
-  let service: CounterService;
+describe('CounterSvc', () => {
+  let service: CounterSvc;
   
   beforeEach(() => {
     TestBed.configureTestingModule({});
-    service = TestBed.inject(CounterService);
+    service = TestBed.inject(CounterSvc);
   });
   
   it('should increment count', () => {
@@ -395,7 +395,7 @@ describe('CounterService', () => {
 
 ```typescript
 @Injectable({ providedIn: 'root' })
-export class UserService {
+export class User {
   private http = inject(HttpClient);
   
   getUser(id: string) {
@@ -403,8 +403,8 @@ export class UserService {
   }
 }
 
-describe('UserService', () => {
-  let service: UserService;
+describe('User', () => {
+  let service: User;
   let httpMock: HttpTestingController;
   
   beforeEach(() => {
@@ -415,7 +415,7 @@ describe('UserService', () => {
       ],
     });
     
-    service = TestBed.inject(UserService);
+    service = TestBed.inject(User);
     httpMock = TestBed.inject(HttpTestingController);
   });
   
@@ -443,22 +443,22 @@ describe('UserService', () => {
 
 ```typescript
 describe('ComponentWithDependency', () => {
-  let userServiceSpy: jasmine.SpyObj<UserService>;
+  let userServiceSpy: jasmine.SpyObj<User>;
   
   beforeEach(async () => {
-    userServiceSpy = jasmine.createSpyObj('UserService', ['getUser', 'updateUser']);
+    userServiceSpy = jasmine.createSpyObj('User', ['getUser', 'updateUser']);
     userServiceSpy.getUser.and.returnValue(of({ id: '1', name: 'Test' }));
     
     await TestBed.configureTestingModule({
-      imports: [UserProfileComponent],
+      imports: [UserProfile],
       providers: [
-        { provide: UserService, useValue: userServiceSpy },
+        { provide: User, useValue: userServiceSpy },
       ],
     }).compileComponents();
   });
   
   it('should call getUser on init', () => {
-    const fixture = TestBed.createComponent(UserProfileComponent);
+    const fixture = TestBed.createComponent(UserProfile);
     fixture.detectChanges();
     
     expect(userServiceSpy.getUser).toHaveBeenCalledWith('1');
@@ -470,26 +470,26 @@ describe('ComponentWithDependency', () => {
 
 ```typescript
 // Create mock with signal
-const mockAuthService = {
+const mockAuth = {
   user: signal<User | null>(null),
-  isAuthenticated: computed(() => mockAuthService.user() !== null),
+  isAuthenticated: computed(() => mockAuth.user() !== null),
   login: jasmine.createSpy('login'),
   logout: jasmine.createSpy('logout'),
 };
 
 beforeEach(async () => {
   await TestBed.configureTestingModule({
-    imports: [ProtectedComponent],
+    imports: [Protected],
     providers: [
-      { provide: AuthService, useValue: mockAuthService },
+      { provide: Auth, useValue: mockAuth },
     ],
   }).compileComponents();
 });
 
 it('should show content when authenticated', () => {
-  mockAuthService.user.set({ id: '1', name: 'Test User' });
+  mockAuth.user.set({ id: '1', name: 'Test User' });
   
-  const fixture = TestBed.createComponent(ProtectedComponent);
+  const fixture = TestBed.createComponent(Protected);
   fixture.detectChanges();
   
   expect(fixture.nativeElement.querySelector('.protected-content')).toBeTruthy();
@@ -505,7 +505,7 @@ it('should show content when authenticated', () => {
     <div (click)="select()">{{ item().name }}</div>
   `,
 })
-export class ItemComponent {
+export class Item {
   item = input.required<Item>();
   selected = output<Item>();
   
@@ -514,9 +514,9 @@ export class ItemComponent {
   }
 }
 
-describe('ItemComponent', () => {
+describe('Item', () => {
   it('should emit selected event on click', () => {
-    const fixture = TestBed.createComponent(ItemComponent);
+    const fixture = TestBed.createComponent(Item);
     const item: Item = { id: '1', name: 'Test Item' };
     
     fixture.componentRef.setInput('item', item);
@@ -542,7 +542,7 @@ describe('ItemComponent', () => {
 import { fakeAsync, tick, flush } from '@angular/core/testing';
 
 it('should debounce search', fakeAsync(() => {
-  const fixture = TestBed.createComponent(SearchComponent);
+  const fixture = TestBed.createComponent(Search);
   fixture.detectChanges();
   
   // Type in search
@@ -565,7 +565,7 @@ it('should debounce search', fakeAsync(() => {
 import { waitForAsync } from '@angular/core/testing';
 
 it('should load data', waitForAsync(() => {
-  const fixture = TestBed.createComponent(DataComponent);
+  const fixture = TestBed.createComponent(Data);
   fixture.detectChanges();
   
   fixture.whenStable().then(() => {
@@ -587,17 +587,17 @@ it('should load data', waitForAsync(() => {
     }
   `,
 })
-export class UserComponent {
+export class UserCmpt {
   userId = signal('1');
-  userResource = httpResource<User>(() => `/api/users/${this.userId()}`);
+  userResource = httpResource<UserData>(() => `/api/users/${this.userId()}`);
 }
 
-describe('UserComponent', () => {
+describe('UserCmpt', () => {
   let httpMock: HttpTestingController;
   
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [UserComponent],
+      imports: [UserCmpt],
       providers: [
         provideHttpClient(),
         provideHttpClientTesting(),
@@ -608,7 +608,7 @@ describe('UserComponent', () => {
   });
   
   it('should display user name after loading', () => {
-    const fixture = TestBed.createComponent(UserComponent);
+    const fixture = TestBed.createComponent(UserCmpt);
     fixture.detectChanges();
     
     // Initially loading
